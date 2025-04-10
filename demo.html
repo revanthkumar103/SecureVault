@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AES Encryption & Decryption Demo</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #2c3e50, #4ca1af);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #fff;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      max-width: 500px;
+      backdrop-filter: blur(10px);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+    label {
+      font-weight: bold;
+    }
+    input, textarea, button {
+      width: 100%;
+      margin: 10px 0 20px;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    button {
+      background-color: #28a745;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>🔐 AES Encryption & Decryption</h2>
+
+    <label>Enter Secret Key:</label>
+    <input type="text" id="key" placeholder="Enter your secret key" />
+
+    <label>Text to Encrypt:</label>
+    <textarea id="plaintext" placeholder="Enter plain text..."></textarea>
+
+    <button onclick="encryptText()">Encrypt</button>
+
+    <label>Encrypted Output:</label>
+    <textarea id="encryptedOutput" readonly></textarea>
+
+    <label>Text to Decrypt:</label>
+    <textarea id="ciphertext" placeholder="Paste encrypted text..."></textarea>
+
+    <button onclick="decryptText()">Decrypt</button>
+
+    <label>Decrypted Output:</label>
+    <textarea id="decryptedOutput" readonly></textarea>
+
+    <div class="footer">© 2025 SecureVault Project</div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/crypto-js@4.1.1/crypto-js.min.js"></script>
+  <script>
+    function encryptText() {
+      const key = document.getElementById('key').value;
+      const plaintext = document.getElementById('plaintext').value;
+
+      if (key && plaintext) {
+        const encrypted = CryptoJS.AES.encrypt(plaintext, key).toString();
+        document.getElementById('encryptedOutput').value = encrypted;
+      } else {
+        alert("Please enter both secret key and text to encrypt.");
+      }
+    }
+
+    function decryptText() {
+      const key = document.getElementById('key').value;
+      const ciphertext = document.getElementById('ciphertext').value;
+
+      if (key && ciphertext) {
+        try {
+          const bytes = CryptoJS.AES.decrypt(ciphertext, key);
+          const decrypted = bytes.toString(CryptoJS.enc.Utf8);
+          if (!decrypted) throw Error();
+          document.getElementById('decryptedOutput').value = decrypted;
+        } catch (e) {
+          alert("Decryption failed. Check if the key and encrypted text are correct.");
+        }
+      } else {
+        alert("Please enter both secret key and encrypted text.");
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SecureVault - About</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to right, #c6ffdd, #fbd786, #f7797d);
+      color: #222;
+    }
+
+    header {
+      background-color: #007bff;
+      color: white;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: #d1e3ff;
+    }
+
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+
+    .about-heading {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 40px;
+    }
+
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+      flex: 1 1 calc(45% - 20px);
+      padding: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      color: #007bff;
+    }
+
+    .card p {
+      line-height: 1.6;
+    }
+
+    footer {
+      background: #007bff;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      margin-top: 60px;
+    }
+
+    @media (max-width: 768px) {
+      .card-container {
+        flex-direction: column;
+      }
+
+      .card {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>SecureVault</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="demo.html">Demo</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2 class="about-heading">About the Project</h2>
+    <div class="card-container">
+      <div class="card">
+        <h3>🔐 Purpose</h3>
+        <p>SecureVault is a simple AES-encrypted password manager that helps users securely store and view passwords in their browser without sending data to servers.</p>
+      </div>
+      <div class="card">
+        <h3>⚙️ Technology Used</h3>
+        <p>This project uses AES (Advanced Encryption Standard) through the Web Crypto API. It's built using pure HTML, CSS, and JavaScript with zero dependencies.</p>
+      </div>
+      <div class="card">
+        <h3>🌐 Client-Side Security</h3>
+        <p>All encryption and decryption take place on the client side, ensuring that sensitive data never leaves the browser.</p>
+      </div>
+      <div class="card">
+        <h3>💡 Use Case</h3>
+        <p>Designed for demos, education, or as a concept prototype for secure password handling in web applications.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 SecureVault Project
+  </footer>
+
+</body>
+</html>
