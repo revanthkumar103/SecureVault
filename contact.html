@@ -6,7 +6,7 @@
   <title>SecureVault - Contact</title>
   <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
     * {
       margin: 0;
@@ -17,30 +17,15 @@
     body {
       font-family: 'Poppins', sans-serif;
       background: radial-gradient(circle at top right, #0f172a, #1e293b);
-      color: #fff;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      color: #f8fafc;
+      overflow-x: hidden;
+      cursor: default;
       transition: background 0.3s ease, color 0.3s ease;
     }
 
     body.light {
       background: #f1f5f9;
       color: #1e293b;
-    }
-
-    .toggle-btn {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: #38bdf8;
-      color: #0f172a;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 30px;
-      font-weight: bold;
-      cursor: pointer;
-      z-index: 1001;
     }
 
     #tsparticles {
@@ -50,48 +35,71 @@
       z-index: 0;
     }
 
-    header, main, footer {
+    .toggle-btn {
+      background: #38bdf8;
+      color: #0f172a;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-right: 20px;
+    }
+
+    header {
+      background-color: #0f172a;
+      padding: 24px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #334155;
       position: relative;
       z-index: 1;
     }
 
-    header {
-      background-color: rgba(0, 0, 0, 0.3);
-      padding: 20px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      backdrop-filter: blur(8px);
-    }
-
     header h1 {
-      margin: 0;
-      font-size: 1.8rem;
+      font-size: 2rem;
+      font-weight: 700;
       color: #38bdf8;
     }
 
+    nav {
+      display: flex;
+      align-items: center;
+    }
+
+    nav .toggle-btn {
+      order: -1;
+      margin-right: 0;
+      margin-left: 0;
+    }
+
     nav a {
-      color: #fff;
+      color: #f1f5f9;
       text-decoration: none;
       margin-left: 20px;
-      font-weight: bold;
+      font-weight: 500;
       transition: color 0.3s ease;
     }
 
-    body.light nav a {
-      color: #1e293b;
-    }
-
     nav a:hover {
-      color: #ffeb99;
+      color: #38bdf8;
     }
 
     main {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 40px 20px;
+      max-width: 1200px;
+      margin: auto;
+      padding: 80px 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .contact-heading {
+      text-align: center;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #38bdf8;
+      margin-bottom: 60px;
     }
 
     .form-box {
@@ -102,12 +110,7 @@
       box-shadow: 0 8px 24px rgba(0,0,0,0.2);
       width: 100%;
       max-width: 500px;
-    }
-
-    .form-box h2 {
-      text-align: center;
-      margin-bottom: 30px;
-      color: #fff;
+      margin: 0 auto;
     }
 
     .input-group {
@@ -145,7 +148,7 @@
       color: #ffeb99;
     }
 
-    button {
+    button[type="submit"] {
       background-color: #ffeb99;
       color: #333;
       padding: 12px;
@@ -158,31 +161,58 @@
       transition: background-color 0.3s ease;
     }
 
-    button:hover {
+    button[type="submit"]:hover {
       background-color: #ffe46e;
     }
 
     footer {
-      background: rgba(0,0,0,0.2);
+      background: #0f172a;
+      color: #64748b;
       text-align: center;
-      color: white;
       padding: 20px;
-      margin-top: auto;
+      font-size: 0.9rem;
+      margin-top: 60px;
     }
 
-    body.light footer {
-      background: #e2e8f0;
-      color: #334155;
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(300px, 1fr));
+      gap: 40px;
+      justify-content: center;
+    }
+
+    .popup {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #22c55e;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.4s ease;
+      z-index: 1002;
+    }
+
+    .popup.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .popup.error {
+      background-color: #ef4444;
     }
   </style>
 </head>
 <body>
   <canvas id="tsparticles"></canvas>
-  <button class="toggle-btn" onclick="document.body.classList.toggle('light')">Toggle Theme</button>
 
   <header>
     <h1>SecureVault</h1>
     <nav>
+      <button class="toggle-btn" onclick="document.body.classList.toggle('light')">Toggle Theme</button>
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
       <a href="demo.html">Demo</a>
@@ -191,8 +221,8 @@
   </header>
 
   <main>
-    <form class="form-box" action="https://formsubmit.co/grevanthkumar103@gmail.com" method="POST">
-      <h2>📬 Contact Us</h2>
+    <h2 class="contact-heading">📬 Contact Us</h2>
+    <form class="form-box" id="contactForm">
       <div class="input-group">
         <input type="text" name="name" id="name" required placeholder=" " />
         <label for="name">Your Name</label>
@@ -208,6 +238,7 @@
       <input type="hidden" name="_captcha" value="false">
       <button type="submit">Send Message</button>
     </form>
+    <div class="popup" id="popup"></div>
   </main>
 
   <footer>
@@ -242,6 +273,32 @@
       },
       detectRetina: true
     });
+
+    const form = document.getElementById("contactForm");
+    const popup = document.getElementById("popup");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+
+      fetch("https://formsubmit.co/ajax/grevanthkumar103@gmail.com", {
+        method: "POST",
+        headers: { "Accept": "application/json" },
+        body: formData
+      })
+      .then(res => res.ok ? showPopup("Message sent successfully!", false) : showPopup("Message not sent.", true))
+      .catch(() => showPopup("Message not sent.", true));
+    });
+
+    function showPopup(message, isError) {
+      popup.textContent = message;
+      popup.classList.add("show");
+      if (isError) popup.classList.add("error");
+      else popup.classList.remove("error");
+      setTimeout(() => popup.classList.remove("show"), 3000);
+    }
   </script>
+
 </body>
 </html>
