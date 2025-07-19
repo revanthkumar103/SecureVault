@@ -4,103 +4,180 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SecureVault - About</title>
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
     body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(to right, #c6ffdd, #fbd786, #f7797d);
-      color: #222;
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at top right, #0f172a, #1e293b);
+      color: #f8fafc;
+      overflow-x: hidden;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    body.light {
+      background: #f1f5f9;
+      color: #1e293b;
+    }
+
+    .toggle-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #38bdf8;
+      color: #0f172a;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    #tsparticles {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    header, main, footer {
+      position: relative;
+      z-index: 1;
     }
 
     header {
-      background-color: #007bff;
-      color: white;
-      padding: 20px 40px;
+      background: #0f172a;
+      padding: 24px 60px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      border-bottom: 1px solid #334155;
+    }
+
+    body.light header {
+      background: #ffffff;
+      border-bottom: 1px solid #cbd5e1;
     }
 
     header h1 {
-      margin: 0;
-      font-size: 1.8rem;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #38bdf8;
     }
 
     nav a {
-      color: white;
+      color: #f1f5f9;
       text-decoration: none;
-      margin-left: 20px;
-      font-weight: bold;
+      margin-left: 24px;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    body.light nav a {
+      color: #1e293b;
     }
 
     nav a:hover {
-      color: #d1e3ff;
+      color: #38bdf8;
     }
 
     main {
-      max-width: 900px;
+      max-width: 1200px;
       margin: auto;
-      padding: 40px 20px;
+      padding: 80px 20px;
     }
 
     .about-heading {
       text-align: center;
-      font-size: 2rem;
-      margin-bottom: 40px;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #38bdf8;
+      margin-bottom: 60px;
     }
 
     .card-container {
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 20px;
+      justify-content: center;
+      gap: 40px;
     }
 
     .card {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
-      flex: 1 1 calc(45% - 20px);
-      padding: 20px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: #1e293b;
+      border-radius: 16px;
+      padding: 30px;
+      width: 300px;
+      transition: all 0.4s ease;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      transform-style: preserve-3d;
+      perspective: 1000px;
+    }
+
+    body.light .card {
+      background: #ffffff;
+      color: #1e293b;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
     }
 
     .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+      background: #0f172a;
+      transform: scale(1.05) rotateX(5deg) rotateY(5deg);
+      box-shadow: 0 12px 32px rgba(56, 189, 248, 0.25);
+    }
+
+    body.light .card:hover {
+      background: #f1f5f9;
     }
 
     .card h3 {
-      margin-top: 0;
-      color: #007bff;
+      color: #38bdf8;
+      font-size: 1.2rem;
+      margin-bottom: 16px;
     }
 
     .card p {
+      font-size: 0.95rem;
+      color: #cbd5e1;
       line-height: 1.6;
     }
 
+    body.light .card p {
+      color: #475569;
+    }
+
     footer {
-      background: #007bff;
-      color: white;
-      padding: 20px;
+      background: #0f172a;
+      color: #64748b;
       text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
       margin-top: 60px;
+    }
+
+    body.light footer {
+      background: #e2e8f0;
+      color: #334155;
     }
 
     @media (max-width: 768px) {
       .card-container {
         flex-direction: column;
-      }
-
-      .card {
-        flex: 1 1 100%;
+        align-items: center;
       }
     }
   </style>
 </head>
 <body>
+  <canvas id="tsparticles"></canvas>
+  <button class="toggle-btn" onclick="toggleMode()">Toggle Theme</button>
 
   <header>
     <h1>SecureVault</h1>
@@ -113,30 +190,73 @@
   </header>
 
   <main>
-    <h2 class="about-heading">About the Project</h2>
+    <h2 class="about-heading">About SecureVault</h2>
     <div class="card-container">
       <div class="card">
-        <h3>🔐 Purpose</h3>
-        <p>SecureVault is a simple AES-encrypted password manager that helps users securely store and view passwords in their browser without sending data to servers.</p>
+        <h3>🔐 Mission & Vision</h3>
+        <p>
+          SecureVault is a privacy-first, client-side AES-GCM encrypted password manager that ensures end-to-end protection without compromising usability. It aims to set a new benchmark for security-focused applications.
+        </p>
       </div>
       <div class="card">
-        <h3>⚙️ Technology Used</h3>
-        <p>This project uses AES (Advanced Encryption Standard) through the Web Crypto API. It's built using pure HTML, CSS, and JavaScript with zero dependencies.</p>
+        <h3>⚙️ Architecture & Technology</h3>
+        <p>
+          Built with HTML5, CSS3, and vanilla JavaScript, SecureVault uses the Web Crypto API to implement AES-GCM encryption with zero backend dependencies.
+        </p>
       </div>
       <div class="card">
-        <h3>🌐 Client-Side Security</h3>
-        <p>All encryption and decryption take place on the client side, ensuring that sensitive data never leaves the browser.</p>
+        <h3>🔒 Security First Approach</h3>
+        <p>
+          Encryption and decryption take place entirely in the browser. No data is transmitted or stored externally, maintaining absolute client-side confidentiality.
+        </p>
       </div>
       <div class="card">
-        <h3>💡 Use Case</h3>
-        <p>Designed for demos, education, or as a concept prototype for secure password handling in web applications.</p>
+        <h3>🚀 Real-World Applications</h3>
+        <p>
+          Ideal for demos, personal vaults, fintech prototypes, or healthcare systems where security and simplicity are critical.
+        </p>
       </div>
     </div>
   </main>
 
   <footer>
-    &copy; 2025 SecureVault Project
+    &copy; 2025 SecureVault Project — Designed for Security, Performance & Simplicity.
   </footer>
 
+  <script>
+    // Toggle light/dark mode
+    function toggleMode() {
+      document.body.classList.toggle("light");
+    }
+
+    // tsParticles config
+    tsParticles.load("tsparticles", {
+      background: { color: { value: "transparent" } },
+      fpsLimit: 60,
+      particles: {
+        number: { value: 50, density: { enable: true, value_area: 800 } },
+        color: { value: "#38bdf8" },
+        shape: { type: "circle" },
+        opacity: { value: 0.5 },
+        size: { value: 3, random: true },
+        move: {
+          enable: true,
+          speed: 1,
+          direction: "none",
+          random: false,
+          straight: false,
+          outModes: "out"
+        },
+        links: {
+          enable: true,
+          distance: 150,
+          color: "#38bdf8",
+          opacity: 0.4,
+          width: 1
+        }
+      },
+      detectRetina: true
+    });
+  </script>
 </body>
 </html>
