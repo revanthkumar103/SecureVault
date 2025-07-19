@@ -68,12 +68,6 @@
       align-items: center;
     }
 
-    nav .toggle-btn {
-      order: -1;
-      margin-right: 0;
-      margin-left: 0;
-    }
-
     nav a {
       color: #f1f5f9;
       text-decoration: none;
@@ -104,8 +98,7 @@
 
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(300px, 1fr));
-      grid-auto-rows: auto;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 40px;
       justify-content: center;
     }
@@ -143,12 +136,6 @@
       font-size: 0.9rem;
       margin-top: 60px;
     }
-
-    @media (max-width: 768px) {
-      .card-grid {
-        grid-template-columns: 1fr;
-      }
-    }
   </style>
 </head>
 <body>
@@ -174,7 +161,7 @@
         <p>SecureVault is a privacy-first, client-side AES-GCM encrypted password manager that ensures end-to-end protection without compromising usability. It aims to set a new benchmark for security-focused applications.</p>
       </div>
       <div class="card">
-        <h3>⚙️ Architecture & Technology</h3>
+        <h3>⚙ Architecture & Technology</h3>
         <p>Built with HTML5, CSS3, and vanilla JavaScript, SecureVault uses the Web Crypto API to implement AES-GCM encryption with zero backend dependencies.</p>
       </div>
       <div class="card">
