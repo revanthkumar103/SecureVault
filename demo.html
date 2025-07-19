@@ -20,12 +20,11 @@
       background: radial-gradient(circle at top right, #0f172a, #1e293b);
       color: #fff;
       min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       transition: background 0.3s ease, color 0.3s ease;
       overflow-x: hidden;
-      cursor: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     #tsparticles {
@@ -35,18 +34,50 @@
       z-index: 0;
     }
 
-    .toggle-btn {
+    header {
       position: fixed;
-      top: 20px;
-      right: 20px;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #0f172a;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 32px;
+      z-index: 1000;
+    }
+
+    header .left-controls {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .toggle-btn {
       background: #38bdf8;
       color: #0f172a;
       border: none;
-      padding: 10px 20px;
+      padding: 8px 16px;
       border-radius: 30px;
       font-weight: bold;
       cursor: pointer;
-      z-index: 1001;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    nav a {
+      color: #f1f5f9;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #38bdf8;
     }
 
     .container {
@@ -60,6 +91,7 @@
       max-width: 500px;
       backdrop-filter: blur(10px);
       animation: fadeInUp 1s ease-out;
+      margin-top: 150px;
     }
 
     h2 {
@@ -102,42 +134,20 @@
       opacity: 0.7;
     }
 
-    .cursor-dot, .cursor-outline {
-      position: fixed;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-    }
-
-    .cursor-dot {
-      width: 8px;
-      height: 8px;
-      background: #ffeb99;
-    }
-
-    .cursor-outline {
-      width: 36px;
-      height: 36px;
-      border: 2px solid rgba(255, 235, 153, 0.4);
-      transition: width 0.2s ease, height 0.2s ease;
-    }
-
-    .ripple {
+    .explosion {
       position: absolute;
       border-radius: 50%;
-      background: rgba(255, 235, 153, 0.25);
-      transform: scale(0);
-      animation: ripple-effect 0.6s linear;
+      width: 4px;
+      height: 4px;
+      background: #ffeb99;
+      animation: explode 0.8s linear;
       pointer-events: none;
       z-index: 9999;
     }
 
-    @keyframes ripple-effect {
-      to {
-        transform: scale(4);
-        opacity: 0;
-      }
+    @keyframes explode {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(5); opacity: 0; }
     }
 
     @keyframes fadeInUp {
@@ -148,63 +158,57 @@
 </head>
 <body>
   <canvas id="tsparticles"></canvas>
-  <button class="toggle-btn" onclick="document.body.classList.toggle('light')">Toggle Theme</button>
-  <div class="cursor-dot"></div>
-  <div class="cursor-outline"></div>
+  <header>
+    <div class="left-controls">
+      <button class="toggle-btn" onclick="document.body.classList.toggle('light')">Toggle Theme</button>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="demo.html">Demo</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
 
-  <div class="container">
-    <h2>🔐 AES Encryption & Decryption</h2>
+  <main style="flex: 1; display: flex; justify-content: center; align-items: center;">
+    <div class="container">
+      <h2>🔐 AES Encryption & Decryption</h2>
 
-    <label>Enter Secret Key:</label>
-    <input type="text" id="key" placeholder="Enter your secret key" />
+      <label>Enter Secret Key:</label>
+      <input type="text" id="key" placeholder="Enter your secret key" />
 
-    <label>Text to Encrypt:</label>
-    <textarea id="plaintext" placeholder="Enter plain text..."></textarea>
+      <label>Text to Encrypt:</label>
+      <textarea id="plaintext" placeholder="Enter plain text..."></textarea>
 
-    <button onclick="encryptText()">Encrypt</button>
+      <button onclick="encryptText()">Encrypt</button>
 
-    <label>Encrypted Output:</label>
-    <textarea id="encryptedOutput" readonly></textarea>
+      <label>Encrypted Output:</label>
+      <textarea id="encryptedOutput" readonly></textarea>
 
-    <label>Text to Decrypt:</label>
-    <textarea id="ciphertext" placeholder="Paste encrypted text..."></textarea>
+      <label>Text to Decrypt:</label>
+      <textarea id="ciphertext" placeholder="Paste encrypted text..."></textarea>
 
-    <button onclick="decryptText()">Decrypt</button>
+      <button onclick="decryptText()">Decrypt</button>
 
-    <label>Decrypted Output:</label>
-    <textarea id="decryptedOutput" readonly></textarea>
+      <label>Decrypted Output:</label>
+      <textarea id="decryptedOutput" readonly></textarea>
 
-    <div class="footer">© 2025 SecureVault Project</div>
-  </div>
+      <div class="footer">© 2025 SecureVault Project</div>
+    </div>
+  </main>
 
   <script>
-    const dot = document.querySelector('.cursor-dot');
-    const outline = document.querySelector('.cursor-outline');
-    let mouseX = 0, mouseY = 0, dotX = 0, dotY = 0, outX = 0, outY = 0;
-
-    document.addEventListener('mousemove', e => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-
-      const ripple = document.createElement('span');
-      ripple.classList.add('ripple');
-      ripple.style.left = `${e.clientX - 10}px`;
-      ripple.style.top = `${e.clientY - 10}px`;
-      ripple.style.width = ripple.style.height = '20px';
-      document.body.appendChild(ripple);
-      setTimeout(() => ripple.remove(), 600);
+    document.addEventListener('click', e => {
+      for (let i = 0; i < 10; i++) {
+        const particle = document.createElement('span');
+        particle.classList.add('explosion');
+        particle.style.left = `${e.clientX}px`;
+        particle.style.top = `${e.clientY}px`;
+        particle.style.position = 'absolute';
+        document.body.appendChild(particle);
+        setTimeout(() => particle.remove(), 800);
+      }
     });
-
-    function animateCursor() {
-      dotX += (mouseX - dotX) * 0.3;
-      dotY += (mouseY - dotY) * 0.3;
-      outX += (mouseX - outX) * 0.1;
-      outY += (mouseY - outY) * 0.1;
-      dot.style.transform = `translate(${dotX}px, ${dotY}px)`;
-      outline.style.transform = `translate(${outX}px, ${outY}px)`;
-      requestAnimationFrame(animateCursor);
-    }
-    animateCursor();
 
     tsParticles.load("tsparticles", {
       background: { color: { value: "transparent" } },
