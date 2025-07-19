@@ -19,26 +19,13 @@
       background: radial-gradient(circle at top right, #0f172a, #1e293b);
       color: #f8fafc;
       overflow-x: hidden;
+      cursor: default;
       transition: background 0.3s ease, color 0.3s ease;
     }
 
     body.light {
       background: #f1f5f9;
       color: #1e293b;
-    }
-
-    .toggle-btn {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: #38bdf8;
-      color: #0f172a;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 30px;
-      font-weight: bold;
-      cursor: pointer;
-      z-index: 1001;
     }
 
     #tsparticles {
@@ -48,23 +35,26 @@
       z-index: 0;
     }
 
-    header, main, footer {
-      position: relative;
-      z-index: 1;
+    .toggle-btn {
+      background: #38bdf8;
+      color: #0f172a;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-right: 20px;
     }
 
     header {
-      background: #0f172a;
-      padding: 24px 60px;
+      background-color: #0f172a;
+      padding: 24px 40px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       border-bottom: 1px solid #334155;
-    }
-
-    body.light header {
-      background: #ffffff;
-      border-bottom: 1px solid #cbd5e1;
+      position: relative;
+      z-index: 1;
     }
 
     header h1 {
@@ -73,16 +63,23 @@
       color: #38bdf8;
     }
 
+    nav {
+      display: flex;
+      align-items: center;
+    }
+
+    nav .toggle-btn {
+      order: -1;
+      margin-right: 0;
+      margin-left: 0;
+    }
+
     nav a {
       color: #f1f5f9;
       text-decoration: none;
-      margin-left: 24px;
+      margin-left: 20px;
       font-weight: 500;
       transition: color 0.3s ease;
-    }
-
-    body.light nav a {
-      color: #1e293b;
     }
 
     nav a:hover {
@@ -93,6 +90,8 @@
       max-width: 1200px;
       margin: auto;
       padding: 80px 20px;
+      position: relative;
+      z-index: 1;
     }
 
     .about-heading {
@@ -103,43 +102,30 @@
       margin-bottom: 60px;
     }
 
-    .card-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(300px, 1fr));
+      grid-auto-rows: auto;
       gap: 40px;
+      justify-content: center;
     }
 
     .card {
       background: #1e293b;
       border-radius: 16px;
       padding: 30px;
-      width: 300px;
-      transition: all 0.4s ease;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-      transform-style: preserve-3d;
-      perspective: 1000px;
-    }
-
-    body.light .card {
-      background: #ffffff;
-      color: #1e293b;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
     }
 
     .card:hover {
       background: #0f172a;
-      transform: scale(1.05) rotateX(5deg) rotateY(5deg);
+      transform: scale(1.05);
       box-shadow: 0 12px 32px rgba(56, 189, 248, 0.25);
-    }
-
-    body.light .card:hover {
-      background: #f1f5f9;
     }
 
     .card h3 {
       color: #38bdf8;
-      font-size: 1.2rem;
       margin-bottom: 16px;
     }
 
@@ -147,10 +133,6 @@
       font-size: 0.95rem;
       color: #cbd5e1;
       line-height: 1.6;
-    }
-
-    body.light .card p {
-      color: #475569;
     }
 
     footer {
@@ -162,26 +144,21 @@
       margin-top: 60px;
     }
 
-    body.light footer {
-      background: #e2e8f0;
-      color: #334155;
-    }
-
     @media (max-width: 768px) {
-      .card-container {
-        flex-direction: column;
-        align-items: center;
+      .card-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
 <body>
+
   <canvas id="tsparticles"></canvas>
-  <button class="toggle-btn" onclick="toggleMode()">Toggle Theme</button>
 
   <header>
     <h1>SecureVault</h1>
     <nav>
+      <button class="toggle-btn" onclick="document.body.classList.toggle('light')">Toggle Theme</button>
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
       <a href="demo.html">Demo</a>
@@ -191,30 +168,22 @@
 
   <main>
     <h2 class="about-heading">About SecureVault</h2>
-    <div class="card-container">
+    <div class="card-grid">
       <div class="card">
         <h3>🔐 Mission & Vision</h3>
-        <p>
-          SecureVault is a privacy-first, client-side AES-GCM encrypted password manager that ensures end-to-end protection without compromising usability. It aims to set a new benchmark for security-focused applications.
-        </p>
+        <p>SecureVault is a privacy-first, client-side AES-GCM encrypted password manager that ensures end-to-end protection without compromising usability. It aims to set a new benchmark for security-focused applications.</p>
       </div>
       <div class="card">
         <h3>⚙️ Architecture & Technology</h3>
-        <p>
-          Built with HTML5, CSS3, and vanilla JavaScript, SecureVault uses the Web Crypto API to implement AES-GCM encryption with zero backend dependencies.
-        </p>
+        <p>Built with HTML5, CSS3, and vanilla JavaScript, SecureVault uses the Web Crypto API to implement AES-GCM encryption with zero backend dependencies.</p>
       </div>
       <div class="card">
         <h3>🔒 Security First Approach</h3>
-        <p>
-          Encryption and decryption take place entirely in the browser. No data is transmitted or stored externally, maintaining absolute client-side confidentiality.
-        </p>
+        <p>Encryption and decryption take place entirely in the browser. No data is transmitted or stored externally, maintaining absolute client-side confidentiality.</p>
       </div>
       <div class="card">
         <h3>🚀 Real-World Applications</h3>
-        <p>
-          Ideal for demos, personal vaults, fintech prototypes, or healthcare systems where security and simplicity are critical.
-        </p>
+        <p>Ideal for demos, personal vaults, fintech prototypes, or healthcare systems where security and simplicity are critical.</p>
       </div>
     </div>
   </main>
@@ -224,12 +193,6 @@
   </footer>
 
   <script>
-    // Toggle light/dark mode
-    function toggleMode() {
-      document.body.classList.toggle("light");
-    }
-
-    // tsParticles config
     tsParticles.load("tsparticles", {
       background: { color: { value: "transparent" } },
       fpsLimit: 60,
@@ -258,5 +221,6 @@
       detectRetina: true
     });
   </script>
+
 </body>
 </html>
