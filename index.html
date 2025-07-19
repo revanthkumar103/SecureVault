@@ -68,6 +68,12 @@
       align-items: center;
     }
 
+    nav .toggle-btn {
+      order: -1;
+      margin-right: 0;
+      margin-left: 0;
+    }
+
     nav a {
       color: #f1f5f9;
       text-decoration: none;
@@ -98,7 +104,8 @@
 
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(2, minmax(300px, 1fr));
+      grid-auto-rows: auto;
       gap: 40px;
       justify-content: center;
     }
@@ -135,6 +142,12 @@
       padding: 20px;
       font-size: 0.9rem;
       margin-top: 60px;
+    }
+
+    @media (max-width: 768px) {
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
